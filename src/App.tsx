@@ -46,11 +46,7 @@ export default function App() {
   return (
     <SafeAreaView>
       <StatusBar barStyle="dark-content" />
-<<<<<<< ours
-      <Dashboard stats={stats} monthly={monthly} yearly={yearly} />
-=======
       <Dashboard stats={stats} monthly={monthly} yearly={yearly} onManualUpdate={handleManualUpdate} />
->>>>>>> theirs
     </SafeAreaView>
   );
 }

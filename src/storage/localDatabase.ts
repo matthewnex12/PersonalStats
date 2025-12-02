@@ -49,9 +49,6 @@ export async function mergeDailyStats(date: string, partial: Partial<DailyStats>
     gaming: [],
     heartRate: [],
   };
-<<<<<<< ours
-  const merged = { ...existing, ...partial } as DailyStats;
-=======
 
   const merged: DailyStats = {
     ...existing,
@@ -64,7 +61,6 @@ export async function mergeDailyStats(date: string, partial: Partial<DailyStats>
     gaming: partial.gaming ? [...existing.gaming, ...partial.gaming] : existing.gaming,
     heartRate: partial.heartRate ? [...existing.heartRate, ...partial.heartRate] : existing.heartRate,
   };
->>>>>>> theirs
   await saveDailyStats(merged);
   return merged;
 }

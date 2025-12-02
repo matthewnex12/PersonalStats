@@ -1,15 +1,3 @@
-<<<<<<< ours
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
-export const ManualEntryPane: React.FC = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Manual Inputs</Text>
-      <Text style={styles.item}>• Add sleep sessions, workouts, meals, and social events.</Text>
-      <Text style={styles.item}>• Quick-add calorie totals and homework/work blocks.</Text>
-      <Text style={styles.item}>• Override device-imported records when needed.</Text>
-=======
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import { DailyStats, MuscleGroup } from '../models/stats';
@@ -154,7 +142,6 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
       />
 
       <Button title="Apply" onPress={onSubmit} disabled={!hasChanges} />
->>>>>>> theirs
     </View>
   );
 };
@@ -168,11 +155,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 8,
   },
-<<<<<<< ours
-  item: {
-    fontSize: 14,
-    marginVertical: 4,
-=======
   caption: {
     fontSize: 14,
     color: '#444',
@@ -189,6 +171,5 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 6,
     marginTop: 4,
->>>>>>> theirs
   },
 });
