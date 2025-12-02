@@ -9,6 +9,10 @@ interface Props {
   stats: DailyStats;
   monthly?: MonthlySummary;
   yearly?: YearlySummary;
+<<<<<<< ours
+=======
+  onManualUpdate?: (partial: Partial<DailyStats>) => void;
+>>>>>>> theirs
 }
 
 function computeMuscleGroups(stats: DailyStats): MuscleGroup[] {
@@ -43,7 +47,11 @@ function ProgressBar({ label, value, color }: { label: string; value: number; co
   );
 }
 
+<<<<<<< ours
 export const Dashboard: React.FC<Props> = ({ stats, monthly, yearly }) => {
+=======
+export const Dashboard: React.FC<Props> = ({ stats, monthly, yearly, onManualUpdate }) => {
+>>>>>>> theirs
   const muscles = useMemo(() => computeMuscleGroups(stats), [stats]);
   const hp = useMemo(() => computeHp(stats), [stats]);
   const energy = useMemo(() => computeEnergy(stats), [stats]);
@@ -71,7 +79,11 @@ export const Dashboard: React.FC<Props> = ({ stats, monthly, yearly }) => {
       </View>
 
       <View style={styles.panel}>
+<<<<<<< ours
         <ManualEntryPane />
+=======
+        <ManualEntryPane onApply={onManualUpdate} />
+>>>>>>> theirs
       </View>
 
       <View style={styles.panel}>

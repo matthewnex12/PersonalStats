@@ -49,7 +49,22 @@ export async function mergeDailyStats(date: string, partial: Partial<DailyStats>
     gaming: [],
     heartRate: [],
   };
+<<<<<<< ours
   const merged = { ...existing, ...partial } as DailyStats;
+=======
+
+  const merged: DailyStats = {
+    ...existing,
+    ...partial,
+    sleep: partial.sleep ? [...existing.sleep, ...partial.sleep] : existing.sleep,
+    workouts: partial.workouts ? [...existing.workouts, ...partial.workouts] : existing.workouts,
+    meals: partial.meals ? [...existing.meals, ...partial.meals] : existing.meals,
+    work: partial.work ? [...existing.work, ...partial.work] : existing.work,
+    social: partial.social ? [...existing.social, ...partial.social] : existing.social,
+    gaming: partial.gaming ? [...existing.gaming, ...partial.gaming] : existing.gaming,
+    heartRate: partial.heartRate ? [...existing.heartRate, ...partial.heartRate] : existing.heartRate,
+  };
+>>>>>>> theirs
   await saveDailyStats(merged);
   return merged;
 }
