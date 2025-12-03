@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { DailyStats, MuscleGroup } from '../models/stats';
 import { palette, typography } from '../theme';
 
@@ -12,6 +13,7 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
   const [workoutMinutes, setWorkoutMinutes] = useState('');
   const [calories, setCalories] = useState('');
   const [gamingMinutes, setGamingMinutes] = useState('');
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const hasChanges = useMemo(
     () => !!sleepHours || !!workoutMinutes || !!calories || !!gamingMinutes,
