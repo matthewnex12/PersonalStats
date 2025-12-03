@@ -38,6 +38,19 @@ export async function loadYearlySummary(year: string): Promise<YearlySummary | u
   return getObject<YearlySummary>(`${YEARLY_KEY_PREFIX}${year}`);
 }
 
+export function mergeUniqueBy<T>(
+  existing: T[],
+  incoming: T[] | undefined,
+  keySelector: (item: T) => string,
+): T[] {
+  const merged = new Map<string, T>();
+
+  existing.forEach((item) => merged.set(keySelector(item), item));
+  incoming?.forEach((item) => merged.set(keySelector(item), item));
+
+  return Array.from(merged.values());
+}
+
 export async function mergeDailyStats(date: string, partial: Partial<DailyStats>): Promise<DailyStats> {
   const existing = (await loadDailyStats(date)) ?? {
     date,
@@ -53,13 +66,13 @@ export async function mergeDailyStats(date: string, partial: Partial<DailyStats>
   const merged: DailyStats = {
     ...existing,
     ...partial,
-    sleep: partial.sleep ? [...existing.sleep, ...partial.sleep] : existing.sleep,
-    workouts: partial.workouts ? [...existing.workouts, ...partial.workouts] : existing.workouts,
-    meals: partial.meals ? [...existing.meals, ...partial.meals] : existing.meals,
-    work: partial.work ? [...existing.work, ...partial.work] : existing.work,
-    social: partial.social ? [...existing.social, ...partial.social] : existing.social,
-    gaming: partial.gaming ? [...existing.gaming, ...partial.gaming] : existing.gaming,
-    heartRate: partial.heartRate ? [...existing.heartRate, ...partial.heartRate] : existing.heartRate,
+    sleep: mergeUniqueBy(existing.sleep, partial.sleep, (item) => item.id),
+    workouts: mergeUniqueBy(existing.workouts, partial.workouts, (item) => item.id),
+    meals: mergeUniqueBy(existing.meals, partial.meals, (item) => item.id),
+    work: mergeUniqueBy(existing.work, partial.work, (item) => item.id),
+    social: mergeUniqueBy(existing.social, partial.social, (item) => item.id),
+    gaming: mergeUniqueBy(existing.gaming, partial.gaming, (item) => item.id),
+    heartRate: mergeUniqueBy(existing.heartRate, partial.heartRate, (item) => item.timestamp),
   };
   await saveDailyStats(merged);
   return merged;
