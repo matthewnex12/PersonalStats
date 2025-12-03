@@ -5,6 +5,7 @@ import { BodySilhouette } from './BodySilhouette';
 import { DailyStats, MonthlySummary, YearlySummary, MuscleGroup } from '../models/stats';
 import { SummaryPane } from './SummaryPane';
 import { ManualEntryPane } from './ManualEntryPane';
+import { palette, surfaces, typography } from '../theme';
 
 interface Props {
   stats: DailyStats;
@@ -96,15 +97,12 @@ export const Dashboard: React.FC<Props> = ({ stats, monthly, yearly, onManualUpd
         <View style={styles.row}>
           <BodySilhouette activeMuscles={muscles} />
           <View style={styles.statsCol}>
-            <NeonProgressBar label="Vitality" icon="🛡️" value={hp} gradient={["#46f0a8", "#25a99a"]} />
-            <NeonProgressBar label="Stamina" icon="⚡" value={energy} gradient={["#7de0ff", "#3a6bff"]} />
-            <NeonProgressBar label="Focus" icon="💫" value={mp} gradient={["#f0adff", "#6b4dff"]} />
-            <View style={styles.statGrid}>
-              <StatRow label="Workouts" value={`${stats.workouts.length}`} icon="🏋️" />
-              <StatRow label="Sleep sessions" value={`${stats.sleep.length}`} icon="🌙" />
-              <StatRow label="Calories" value={`${stats.meals.reduce((a, b) => a + b.calories, 0)} kcal`} icon="🔥" />
-              <StatRow label="Gaming" value={`${stats.gaming.reduce((a, g) => a + g.durationMinutes, 0)} mins`} icon="🎮" />
-            </View>
+            <ProgressBar label="HP" value={hp} color={palette.accent} />
+            <ProgressBar label="Sleep Energy" value={energy} color={palette.accentSecondary} />
+            <Text style={styles.statLine}>Workouts: {stats.workouts.length}</Text>
+            <Text style={styles.statLine}>Sleep: {stats.sleep.length} sessions</Text>
+            <Text style={styles.statLine}>Calories: {stats.meals.reduce((a, b) => a + b.calories, 0)}</Text>
+            <Text style={styles.statLine}>Gaming: {stats.gaming.reduce((a, g) => a + g.durationMinutes, 0)} mins</Text>
           </View>
         </View>
       </View>
@@ -185,28 +183,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#050712',
   },
   panel: {
-    padding: 18,
-    marginHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: 'rgba(9, 13, 28, 0.82)',
-    borderWidth: 1,
-    borderColor: 'rgba(76, 235, 255, 0.45)',
-    overflow: 'hidden',
-    shadowColor: '#3cf8ff',
-    shadowOpacity: 0.35,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 8,
-  },
-  panelHeader: {
-    marginBottom: 10,
+    width: 360,
+    ...surfaces.panel,
   },
   heading: {
-    fontSize: 20,
-    fontWeight: '900',
-    color: '#e7f7ff',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
+    ...typography.heading,
+    marginBottom: 12,
   },
   row: {
     flexDirection: 'row',
@@ -221,44 +203,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   barLabel: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: '#d7f7ff',
-    letterSpacing: 0.8,
+    ...typography.label,
+    marginBottom: 4,
   },
   barBackground: {
     width: '100%',
-    borderRadius: 12,
-    backgroundColor: 'rgba(255,255,255,0.04)',
-    paddingVertical: 4,
-  },
-  barHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 4,
-  },
-  barValue: {
-    color: '#8ef7ff',
-    fontWeight: '800',
-    fontSize: 13,
-  },
-  statGrid: {
-    marginTop: 4,
-    backgroundColor: 'rgba(255,255,255,0.02)',
-    borderRadius: 12,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: 'rgba(120, 229, 255, 0.2)',
-    shadowColor: '#0ff',
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-  },
-  statRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 4,
-    justifyContent: 'space-between',
+    height: 10,
+    backgroundColor: palette.progressTrack,
+    borderRadius: 8,
   },
   statIcon: {
     marginRight: 8,
@@ -301,8 +253,8 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginRight: 6,
   },
-  chipValue: {
-    fontSize: 12,
-    fontWeight: '900',
+  statLine: {
+    ...typography.body,
+    marginVertical: 2,
   },
 });

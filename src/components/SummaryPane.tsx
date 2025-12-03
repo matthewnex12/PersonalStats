@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MonthlySummary, YearlySummary } from '../models/stats';
+import { typography } from '../theme';
 
 interface Props {
   monthly?: MonthlySummary;
@@ -48,8 +49,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(120, 229, 255, 0.18)',
   },
   title: {
-    fontSize: 16,
-    fontWeight: '900',
+    ...typography.heading,
     marginBottom: 8,
     color: '#eaf7ff',
     letterSpacing: 1,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   item: {
-    fontSize: 13,
+    ...typography.body,
     marginVertical: 4,
     color: '#d5eaff',
     fontWeight: '700',
