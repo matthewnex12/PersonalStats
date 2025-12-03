@@ -4,6 +4,7 @@ import { BodySilhouette } from './BodySilhouette';
 import { DailyStats, MonthlySummary, YearlySummary, MuscleGroup } from '../models/stats';
 import { SummaryPane } from './SummaryPane';
 import { ManualEntryPane } from './ManualEntryPane';
+import { palette, surfaces, typography } from '../theme';
 
 interface Props {
   stats: DailyStats;
@@ -61,8 +62,8 @@ export const Dashboard: React.FC<Props> = ({ stats, monthly, yearly, onManualUpd
         <View style={styles.row}>
           <BodySilhouette activeMuscles={muscles} />
           <View style={styles.statsCol}>
-            <ProgressBar label="HP" value={hp} color="#7dd97d" />
-            <ProgressBar label="Sleep Energy" value={energy} color="#7db7ff" />
+            <ProgressBar label="HP" value={hp} color={palette.accent} />
+            <ProgressBar label="Sleep Energy" value={energy} color={palette.accentSecondary} />
             <Text style={styles.statLine}>Workouts: {stats.workouts.length}</Text>
             <Text style={styles.statLine}>Sleep: {stats.sleep.length} sessions</Text>
             <Text style={styles.statLine}>Calories: {stats.meals.reduce((a, b) => a + b.calories, 0)}</Text>
@@ -88,11 +89,10 @@ const styles = StyleSheet.create({
   },
   panel: {
     width: 360,
-    padding: 16,
+    ...surfaces.panel,
   },
   heading: {
-    fontSize: 22,
-    fontWeight: '800',
+    ...typography.heading,
     marginBottom: 12,
   },
   row: {
@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   barLabel: {
-    fontSize: 14,
+    ...typography.label,
     marginBottom: 4,
   },
   barBackground: {
     width: '100%',
     height: 10,
-    backgroundColor: '#e6e6e6',
+    backgroundColor: palette.progressTrack,
     borderRadius: 8,
   },
   barFill: {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   statLine: {
-    fontSize: 14,
+    ...typography.body,
     marginVertical: 2,
   },
 });

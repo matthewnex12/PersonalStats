@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { View } from 'react-native';
 import { Dashboard } from './components/Dashboard';
 import { DailyStats, MonthlySummary, YearlySummary } from './models/stats';
 import { loadDailyStats, loadMonthlySummary, loadYearlySummary, mergeDailyStats } from './storage/localDatabase';
 import { configureBackgroundSync } from './services/sync';
+import { surfaces } from './theme';
 
 const today = new Date().toISOString().slice(0, 10);
 const emptyStats: DailyStats = {
@@ -44,9 +45,8 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView>
-      <StatusBar barStyle="dark-content" />
+    <View style={surfaces.screen}>
       <Dashboard stats={stats} monthly={monthly} yearly={yearly} onManualUpdate={handleManualUpdate} />
-    </SafeAreaView>
+    </View>
   );
 }
