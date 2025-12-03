@@ -154,14 +154,22 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(120, 229, 255, 0.18)',
   },
   title: {
     ...typography.heading,
     marginBottom: 8,
+    color: '#eaf7ff',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   caption: {
     ...typography.body,
     marginBottom: 12,
+    fontWeight: '700',
   },
   label: {
     ...typography.label,
