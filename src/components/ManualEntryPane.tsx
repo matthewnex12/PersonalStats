@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { DailyStats, MuscleGroup } from '../models/stats';
+import { palette, typography } from '../theme';
 
 interface Props {
   onApply?: (partial: Partial<DailyStats>) => void;
@@ -11,6 +13,7 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
   const [workoutMinutes, setWorkoutMinutes] = useState('');
   const [calories, setCalories] = useState('');
   const [gamingMinutes, setGamingMinutes] = useState('');
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const hasChanges = useMemo(
     () => !!sleepHours || !!workoutMinutes || !!calories || !!gamingMinutes,
@@ -108,6 +111,7 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
       <Text style={styles.label}>Sleep (hours)</Text>
       <TextInput
         placeholder="e.g. 7.5"
+        placeholderTextColor={palette.textSecondary}
         keyboardType="decimal-pad"
         value={sleepHours}
         onChangeText={setSleepHours}
@@ -117,6 +121,7 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
       <Text style={styles.label}>Workout (minutes)</Text>
       <TextInput
         placeholder="e.g. 45"
+        placeholderTextColor={palette.textSecondary}
         keyboardType="numeric"
         value={workoutMinutes}
         onChangeText={setWorkoutMinutes}
@@ -126,6 +131,7 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
       <Text style={styles.label}>Calories</Text>
       <TextInput
         placeholder="e.g. 2100"
+        placeholderTextColor={palette.textSecondary}
         keyboardType="numeric"
         value={calories}
         onChangeText={setCalories}
@@ -135,6 +141,7 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
       <Text style={styles.label}>Gaming (minutes)</Text>
       <TextInput
         placeholder="e.g. 90"
+        placeholderTextColor={palette.textSecondary}
         keyboardType="numeric"
         value={gamingMinutes}
         onChangeText={setGamingMinutes}
@@ -149,27 +156,35 @@ export const ManualEntryPane: React.FC<Props> = ({ onApply }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(120, 229, 255, 0.18)',
   },
   title: {
-    fontSize: 18,
-    fontWeight: '700',
+    ...typography.heading,
     marginBottom: 8,
+    color: '#eaf7ff',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   caption: {
-    fontSize: 14,
-    color: '#444',
+    ...typography.body,
     marginBottom: 12,
+    fontWeight: '700',
   },
   label: {
+    ...typography.label,
     marginTop: 8,
-    fontWeight: '600',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#d4d4d4',
+    borderColor: palette.borderGlow,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 6,
+    borderRadius: 10,
     marginTop: 4,
+    color: palette.textPrimary,
+    backgroundColor: 'rgba(255,255,255,0.04)',
   },
 });
